@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .result{
+            background-color: aqua;
+            border: 2px solid rgb(199, 56, 56);
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="result"></div>
+    <script >let heading=document.createElement("h1");
+        document.body.appendChild(heading);
+        heading.innerHTML="Click the button to get Cat picture";
+        let btn=document.createElement("button");
+        document.body.appendChild(btn);
+        btn.innerHTML="Click Me";
+        let result=document.querySelector(".result");
+        btn.addEventListener("click",async()=>{
+            try {
+                let response= await fetch("https://api.thedogapi.com/v1/images/search",{
+                    method:"GET",
+                    header:{
+                        "Content-type":"application/json"
+        
+                    }
+                })
+                let data=await response.json();
+                console.log(data);
+                result.innerHTML+=`
+                <div>
+                  <img src="${data[0].url}"/>
+                </div>`
+            } catch (error) {
+                alert("error");
+                
+            }
+        })
+        </script>
+</body>
+</html>
